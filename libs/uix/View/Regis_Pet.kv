@@ -1,0 +1,126 @@
+#:import ku kivy.utils.get_color_from_hex
+
+<Linha@Widget>
+    canvas:
+        Color:
+            rgba: ku("#4A696E")
+        Rectangle:
+            size: 200, 3
+            pos: self.pos
+
+<Box>
+    canvas.before:
+        Color:
+            rgba: self.cor
+
+        RoundedRectangle:
+            radius: [20]
+            size: self.size
+            pos: self.pos
+
+<Regis_Pet>
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+            id: toolbar
+            title: "Olá, nome do veterinário"
+            md_bg_color: ku("#4A696E")
+            left_action_items: [["arrow-left", lambda x: root.voltar(app.root)]]
+        ScrollView:
+
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: dp(1190)
+
+                    Box:
+                        id: box
+                        size_hint_x: .8
+                        size_hint_y: .95
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        cor: ku("7EA3A2")
+
+                    AsyncImage:
+                        id: img
+                        keep_ratio: True
+                        source: ''
+                        pos_hint: {"center_x": .5, "top": .95}
+                        size_hint: None, None
+                        size: dp(280), dp(280)
+
+                #Coluna Animal:
+                    MDBoxLayout:
+                        id: regis
+                        orientation: "vertical"
+                        #spacing: dp(0)
+                        size_hint_y: .6
+                        pos_hint: {"center_x": .7, "top": .68}
+                        #height: self.parent.height
+
+                        MDLabel:
+                            text: "Espécie:"
+                            #pos_hint: {"center_x": .7, "center_y": .55}
+                            bold: True
+
+                        MDLabel:
+                            text: "Cachorro"
+                            #pos_hint: {"center_x": .86, "center_y": .55}
+
+                        MDLabel:
+                            text: "Raça:"
+                            #pos_hint: {"center_x": .7, "center_y": .52}
+                            bold: True
+
+                        MDLabel:
+                            text: "Pug"
+                            #pos_hint: {"center_x": .84, "center_y": .52}
+
+                        MDLabel:
+                            text: "Sexo:"
+                            #pos_hint: {"center_x": .7, "center_y": .49}
+                            bold: True
+
+                        MDLabel:
+                            text: "Masculino"
+                            #pos_hint: {"center_x": .84, "center_y": .49}
+
+
+                        MDLabel:
+                            text: "Nome:"
+                            #pos_hint: {"center_x": .7, "center_y": .43}
+                            bold: True
+
+                        MDLabel:
+                            text: "Thor"
+                            #pos_hint: {"center_x": .84, "center_y": .43}
+
+                        MDLabel:
+                            text: "Data de Nascimento:"
+                            #pos_hint: {"center_x": .7, "center_y": .40}
+                            bold: True
+
+                        MDLabel:
+                            text: "4 anos"
+                            #pos_hint: {"center_x": .85, "center_y": .40}
+
+                #Coluna Dono:
+                    #Linha:
+                      #  pos_hint: {"center_x": .7, "center_y": .39}
+
+
+                        MDLabel:
+                            text: "Contato:"
+                            #pos_hint: {"center_x": .7, "center_y": .28}
+                            bold: True
+
+                        MDLabel:
+                            text: "9293834738"
+                            #pos_hint: {"center_x": .85, "center_y": .28}
+
+
+
+

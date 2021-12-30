@@ -1,0 +1,133 @@
+#:import ku kivy.utils.get_color_from_hex
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+<Lista>
+
+    AsyncImage:
+        allow_stretch: True
+        source: root.src
+        size_hint: 1, .75
+        pos_hint: {"top": 1}
+
+    MDLabel:
+        text: root.nome
+        halign: "center"
+        pos_hint: {"y": -0.425}
+        bold: True
+        font_size: sp(21)
+
+<Tab@MDFloatLayout+MDTabsBase>
+
+<TelaCliente>
+
+    MDFloatLayout:
+
+        MDBoxLayout:
+            orientation: "vertical"
+
+            MDToolbar:
+                title: "Olá nome do Cliente"
+                md_bg_color: ku("#4A696E")
+                right_action_items: [["exit-to-app", lambda x: app.logout()]]
+
+            MDTabs:
+                background_color: ku("7EA3A2")
+
+                Tab:
+                    icon: "home"
+                    title: "Tela Inicial"
+
+                    MDLabel:
+                        halign: "center"
+                        text: "Bem vindo a sua tela inicial!"
+                        pos_hint: {"y": .3}
+
+                    #Image:
+                        #id: imagem
+                        #source: "jHjEuPI.png"
+
+                Tab:
+                    icon: "paw"
+                    title: "Pets"
+
+                    #MDLabel:
+                        #halign: "center"
+                        #text: "Aqui você encontrará os seus pets registrados!"
+                        #pos_hint: {"center_x": .5}
+
+                    MDFloatingActionButton:
+                        icon: "plus"
+                        md_bg_color: ku("7EA3A2")
+                        pos_hint: {"right": .92, "y": .05}
+                        on_release:
+                            app.root.transition = NoTransition()
+                            root.manager.set_current("Adicionar_Pets")
+
+                    MDFillRoundFlatButton:
+                        md_bg_color: ku("#D8588A")
+                        pos_hint: {"center_x": .5, "y": .135}
+                        text: "    Remover pet    "
+                        font_size: sp(19)
+
+                    Button:
+                        background_normal:"Componentes/Icons/Seta_Direita.png"
+                        background_down: "Componentes/Icons/Seta_Direita.png"
+                        size_hint: None,None
+                        size: dp(64), dp(64)
+                        pos_hint: {"right": .95, "center_y": .5}
+                        on_press:
+                            Ger_sec.transition.direction = "left"
+                            root.selecionar(Ger_sec, "direita")
+                            #print("Direita")
+
+                    Button:
+                        background_normal:"Componentes/Icons/Seta_Esquerda.png"
+                        background_down: "Componentes/Icons/Seta_Esquerda.png"
+                        size_hint: None,None
+                        size: dp(64), dp(64)
+                        pos_hint: {"x": .05,"center_y": .5}
+                        on_press:
+                            Ger_sec.transition.direction = "right"
+                            root.selecionar(Ger_sec, "esquerda")
+                            #print("Esquerda")
+
+                    #Image:
+                     #   source: "Componentes/Icons/Seta_Direita.png"
+                     #   size_hint: None,None
+                     #   size: dp(96), dp(96)
+                     #   pos_hint: {"right": .95, "center_y": .5}
+                     #   on_touch_down:
+                     #       print("Direita")
+
+                    #Image:
+                     #   source: "Componentes/Icons/Seta_Esquerda.png"
+                     #   size_hint: None,None
+                     #   size: dp(96), dp(96)
+                     #   pos_hint: {"x": .05,"center_y": .5}
+                     #   on_touch_down:
+                     #       print("Esquerda")
+
+                    ScreenManager:
+                        id: Ger_sec
+                        size_hint: .52, .5
+                        pos_hint: {"center_x": .5, "center_y": .575}
+
+#                            name: "tela1"
+#
+#                            Lista:
+#                                size_hint: .5, .6
+#                                pos_hint: {"center_x": .5, "center_y": .58}
+#
+#                        MDScreen:
+#                            name: "tela2"
+#
+#                            Lista:
+#                                cor: ku("#D8588A")
+#                                size_hint: .5, .6
+#                                pos_hint: {"center_x": .5, "center_y": .58}
+
+        Image:
+            source: "Componentes/Imagens/Logo_sem_fundo.png"
+            size_hint: None, None
+            size: dp(128), dp(128)
+            pos_hint: {"top": .95, "right": .95}

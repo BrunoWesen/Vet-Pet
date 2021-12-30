@@ -1,0 +1,413 @@
+#:import ku kivy.utils.get_color_from_hex
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+<MDTextFieldRound>
+    normal_color:ku('#7EA3A2')  # Deixa o default da propriedade "normal_color" do MDTextFieldRound
+                                # pra cor verde escuro da nossa paleta
+
+<Vet>:
+
+    MDFloatLayout:
+
+        MDBoxLayout:
+            orientation: "vertical"
+
+            MDToolbar:
+                id: toolbar
+                title: "Nome do Atendente"
+                md_bg_color: ku("#4A696E")
+
+            ScrollView:
+
+                MDBoxLayout:
+                    orientation: "vertical"
+                    adaptive_height: True
+
+                    MDFloatLayout:
+                        size_hint_y: None
+                        height: dp(610)
+
+                        MDLabel:
+                            id: nomevet
+                            halign: "center"
+                            text: "Nome do Veterinário"
+                            pos_hint: {"top": 1.4, "x": -0.1}
+                            font_size: sp(19)
+
+                        AsyncImage:
+                            id: asimg
+                            allow_stretch: True
+                            source: ""
+                            pos_hint: {"center_x": .5, "top": .82}
+                            size_hint: None, None
+                            size: dp(200), dp(280)
+
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: .2
+                            pos_hint: {"top": .28}
+                            padding: dp(12), 0, 0, 0
+
+                            MDLabel:
+                                text: "Turno: de 8 ás 11 e 14 ás 17:30."
+
+                            MDLabel:
+                                text: "Dias disponíveis: seg á sex."
+
+                            MDLabel:
+                                text: "Status: Disponível."  # Disponível, Ocupado, Indisponível
+
+                    BoxLayout:
+                        padding: 0,0,0,dp(14)
+                        size_hint_y: None
+                        size_hint_x: .9
+                        #width: dp(320)
+                        pos_hint: {"center_x": .5}
+                        height: dp(250)
+
+                        MDCard:  # Widget de calendário contendo o controle do veterinário
+                            radius: [dp(12), dp(12), dp(12), dp(12)]
+                            md_bg_color: ku("7EA3A2")
+                            #pos_hint: {"center_x": .5}
+                            size_hint: 1, None
+                            height: dp(250)
+                            #size: dp(320), dp(220)
+
+        Image:
+            source: "Componentes/Imagens/Logo_sem_fundo.png"
+            size_hint: None, None
+            size: dp(128), dp(128)
+            pos_hint: {"top": .95, "right": .95}
+
+<Tab@MDFloatLayout+MDTabsBase>
+
+<MyTile@SmartTileWithLabel>
+    size_hint: None, None
+    height: dp(175)
+    width: dp(135)
+
+<TelaAtendente>
+    on_pre_enter:
+        self.add_vetsc(app.root)
+
+    on_pre_leave:
+        self.prevset(app.root)
+
+    MDFloatLayout:
+
+        MDBoxLayout:
+            orientation: "vertical"
+
+            MDToolbar:
+                id: toolbar
+                title: "Nome do Atendente"
+                md_bg_color: ku("#4A696E")
+                right_action_items: [["exit-to-app", lambda x: app.logout()]]
+
+            MDTabs:
+                background_color: ku("7EA3A2")
+
+                Tab:
+                    icon: "shield"
+                    title: "Veterinários"
+
+                    ScrollView:
+
+                        MDGridLayout: #Substituir por MDGridLayout
+                            cols: 2
+                            adaptive_height: True
+                            spacing: dp(55)
+                            padding: dp(35)
+
+                            MyTile:
+                                source: "Componentes/UserImages/NonPhotor4.png"
+                                #size_hint: None, None
+                                #size: 320, 320
+                                text: "[size=%i]Veterinário[/size]" % (sp(22))
+                                on_release:
+                                    #print("Pressionado")
+                                    app.root.transition = NoTransition()
+                                    root.transicionar_tela(app.root, self.source, self.text.split("]")[1].split("[")[0])
+
+                            MyTile:
+                                source: "Componentes/UserImages/Sasuke.jpg"
+                                text: "[size=%i]Uchiha Sasuke[/size]" % (sp(22))
+                                on_release:
+                                    #print("Pressionado")
+                                    app.root.transition = NoTransition()
+                                    root.transicionar_tela(app.root, self.source, self.text.split("]")[1].split("[")[0])
+
+                            MyTile:
+                                source: "Componentes/UserImages/Peppa.jpeg"
+                                text: "[size=%i]Peppa Emo[/size]" % (sp(22))
+                                on_release:
+                                    #print("Pressionado")
+                                    app.root.transition = NoTransition()
+                                    root.transicionar_tela(app.root, self.source, self.text.split("]")[1].split("[")[0])
+
+                            #MDCard:
+                                #radius: [dp(12), dp(12), dp(12), dp(12)]
+                                #md_bg_color: ku("7EA3A2")
+                                #size_hint: None, None
+                                ##pos_hint: {"center_y": .75}
+                                #size: dp(144), dp(184)
+                                #on_touch_down:
+                                    #app.root.transition = NoTransition()
+                                    #app.root.current = "Vet"
+
+                Tab:
+                    icon: "account-multiple-outline"
+                    title: "Funcionários"
+
+                    ScreenManager:
+                        id: gerente
+
+                        MDScreen:
+                            name: "Tela1"
+                            on_pre_leave:
+                                root.manager_changer(gerente)
+
+                            FloatLayout:
+
+                                MDFillRoundFlatIconButton:
+                                    icon: "pen-plus"
+                                    text: "Novo Atendente"
+                                    md_bg_color: ku('#7EA3A2')
+                                    icon_color: ku('#1e46c9')
+                                    pos_hint:{'y':.75,'center_x':.5}
+                                    on_press:
+                                        gerente.current = 'TelaADDa'
+
+                                MDFillRoundFlatIconButton:
+                                    icon: "shield-plus"
+                                    text: "Novo Veterinário"
+                                    md_bg_color: ku('#7EA3A2')
+                                    #icon_color: 1, 0, 0, 1
+                                    pos_hint:{'y':.58,'center_x':.5}
+                                    on_press:
+                                        gerente.current = 'TelaADDv'
+
+                                MDFillRoundFlatIconButton:
+                                    icon: "account-remove"
+                                    text: "Remover Funcionário"
+                                    md_bg_color: ku('#7EA3A2')
+                                    icon_color: ku('#e34040')
+                                    pos_hint:{'y':.42,'center_x':.5}
+                                    on_press:
+                                        gerente.current = 'Remover'
+
+                        MDScreen:
+                            name: 'TelaADDa'
+
+                            FloatLayout:
+
+                                ScrollView:
+
+                                    MDBoxLayout:
+                                        id: box_att
+                                        orientation:'vertical'
+                                        spacing: dp(70)
+                                        pos_hint: {'top':.7,'center_x':.5}
+                                        padding: 0,dp(110),0,dp(110)
+                                        width: dp(300)
+                                        adaptive_height:True
+
+                                        MDTextFieldRound:
+                                            hint_text: "Nome"
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            size_hint_x:None
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "Email"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "ID"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "Telefone"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "Senha"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            password: True
+                                            password_mask: "•"
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "Confirmar senha"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            password: True
+                                            password_mask: "•"
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            id: senhadmin2
+                                            hint_text: "Senha do admin"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            password: True
+                                            password_mask: "•"
+                                            width:dp(300)
+
+                                        MDFillRoundFlatIconButton:
+                                            text:'Adicionar'
+                                            icon:'content-save'
+                                            md_bg_color: ku("#4A696E")
+                                            pos_hint: {"center_x": .5}
+                                            on_release:
+                                                root.add(gerente, self.parent, "Atendente", senhadmin2.text)
+
+                                        Widget:
+                                            height: dp(180)
+
+                                MDIconButton:
+                                    icon: "close-thick"
+                                    pos_hint: {"center_x": .25, "top": .975}
+                                    on_press:
+                                        root.rem(box_att)
+
+                        MDScreen:
+                            name: 'TelaADDv'
+
+                            FloatLayout:
+
+                                ScrollView:
+
+                                    MDBoxLayout:
+                                        id: box_vet
+                                        orientation:'vertical'
+                                        spacing:dp(70)
+                                        pos_hint:{'top':.7,'center_x':.5}
+                                        padding:0,dp(110),0,dp(110)
+                                        width:dp(300)
+                                        adaptive_height:True
+
+                                        MDTextFieldRound:
+                                            hint_text: "Nome"
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            size_hint_x:None
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "Email"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "ID"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "Telefone"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "Senha"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            password: True
+                                            password_mask: "•"
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            hint_text: "Confirmar senha"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            password: True
+                                            password_mask: "•"
+                                            width:dp(300)
+
+                                        MDTextFieldRound:
+                                            id: senhadmin1
+                                            hint_text: "Senha do admin"
+                                            size_hint_x:None
+                                            pos_hint:{'center_y':.5,'center_x':.5}
+                                            password: True
+                                            password_mask: "•"
+                                            width:dp(300)
+
+                                        MDFillRoundFlatIconButton:
+                                            text:'Adicionar'
+                                            icon:'content-save'
+                                            md_bg_color: ku("#4A696E")
+                                            pos_hint: {"center_x": .5}
+                                            on_release:
+                                                root.add(gerente, self.parent, "Veterinario", senhadmin1.text)
+
+                                        Widget:
+                                            height: dp(180)
+
+                                MDIconButton:
+                                    icon: "close-thick"
+                                    pos_hint: {"center_x": .25, "top": .975}
+                                    on_press:
+                                        root.rem(box_vet)
+
+                        MDScreen:
+                            name:'Remover'
+
+                            MDBoxLayout:
+                                orientation:'vertical'
+                                spacing:dp(70)
+                                pos_hint:{'top':.7,'center_x':.5}
+                                padding:0,dp(35),0,0
+                                width:dp(300)
+                                adaptive_height:True
+
+                                MDTextFieldRound:
+                                    id: ID_F
+                                    pos_hint: {"center_x": .5}
+                                    hint_text: 'ID do Funcionário'
+                                    icon_left: 'account'
+                                    size_hint_x: None
+                                    width: dp(300)
+
+                                MDTextFieldRound:
+                                    id: senha_f
+                                    icon_left: 'lock'
+                                    pos_hint: {"center_x": .5}
+                                    hint_text: 'Sua Senha'
+                                    size_hint_x: None
+                                    password: True
+                                    password_mask: "•"
+                                    width: dp(300)
+
+                                MDFillRoundFlatIconButton:
+                                    text:'remover'
+                                    icon:'delete'
+                                    md_bg_color: ku('#D8588A')
+                                    pos_hint: {"center_x": .5}
+                                    on_release:
+                                        root.rem_func(ID_F, senha_f)
+
+                                #MDFillRoundFlatIconButton:
+                                    #text:'adicionar'
+                                    #icon:'plus'
+                                    #md_bg_color: ku('#D8588A')
+                                    #pos_hint: {"x": .2}
+                                    #on_release:
+                                        #root.cria_func(ID_F.text, senha_f.text, Ola)
+
+        #Image:
+            #source: "Componentes/Imagens/Logo_sem_fundo.png"
+            #size_hint: None, None
+            #size: dp(128), dp(128)
+            #pos_hint: {"top": .95, "right": .95}
+

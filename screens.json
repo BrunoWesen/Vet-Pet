@@ -1,0 +1,32 @@
+{
+    "TelaLogin": {
+        "import": "from libs.uix.View.Login import Login",
+        "object": "Login()",
+        "kv": "libs/uix/View/Login.kv"
+    },
+    "TelaCliente": {
+        "import": "from libs.uix.View.Usuario import TelaCliente",
+        "object": "TelaCliente()",
+        "kv": "libs/uix/View/TelaCliente.kv"
+    },
+    "Adicionar_Pets": {
+        "import": "from libs.uix.View.AddPet import AddPet",
+        "object": "AddPet()",
+        "kv": "libs/uix/View/AddPet.kv"
+    },
+    "TelaAtendente": {
+        "import": "from libs.uix.View.TelaAtendente import TelaAtendente",
+        "object": "TelaAtendente()",
+        "kv": "libs/uix/View/TelaAtendente.kv"
+    },
+    "TelaVeterinario": {
+        "import": "from libs.uix.View.TelaVeterinario import TelaVet",
+        "object": "TelaVet()",
+        "kv": "libs/uix/View/TelaVeterinario.kv"
+    },
+    "Regis_Pet": {
+        "import": "from libs.uix.View.Regis_Pet import Regis_Pet",
+        "object": "Regis_Pet()",
+        "kv": "libs/uix/View/Regis_Pet.kv"
+    }
+}

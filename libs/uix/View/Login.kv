@@ -1,0 +1,180 @@
+# Importando uma função que converte cor Hexadecimal para RGBA
+#:import ku kivy.utils.get_color_from_hex
+
+<Tabbed>
+
+#<Linha>
+#    canvas:
+#        Color:
+#            rgba: ku("#4A696E")
+#        Rectangle:
+#            size: 80, 3
+#            pos: self.pos
+
+<Login>
+    MDFloatLayout:
+        #Linha:
+            #id: linhaon
+            #pos_hint: {"center_x": .45, "center_y": .5}
+
+        Image:
+            source: 'Componentes/Imagens/Logo_sem_fundo.png'
+            pos_hint: {"center_x": .5, "center_y": .75}
+            size_hint: None, None
+            size: dp(384), dp(384)
+            allow_stretch: True
+
+        Tabbed:
+            id: TABB
+            size_hint: 1, 1
+            pos_hint: {'center_x': .5, 'center_y': .05}
+            do_default_tab: False
+            background_color: 1, 1, 1, 0
+#            tab_height: dp(200)
+#            tab_width: dp(100)
+            tab_pos: 'top_mid'
+
+            TabbedPanelItem:
+                id: login
+                text: "Login"
+                color: ku("#7EA3A2")
+                background_color: 1,1,1,0
+                #on_touch_down:
+                    #root.linha(TABB.tab_list, TABB.current_tab)
+
+                MDFloatLayout:
+
+                    MDTextFieldRound:
+                        id: texto_email
+                        pos_hint: {"center_x": .5, "center_y": .96}
+                        hint_text: 'Email/ID'
+                        icon_left: 'account'
+                        normal_color: ku("#4A696E")
+                        color_active: ku("#7EA3A2")
+                        size_hint_x: None
+                        width: dp(300)
+
+                    MDRelativeLayout:
+                        #md_bg_color: ku("4A696E")
+                        size_hint: None, None
+                        size: dp(300), texto_senha1.height
+                        pos_hint: {"center_x": .5, "center_y": .86}
+
+                        MDTextFieldRound:
+                            id: texto_senha1
+                            icon_left: 'lock'
+                            normal_color: ku("#4A696E")
+                            color_active: ku("#7EA3A2")
+                            #pos_hint: {"center_x": .5, "center_y": .86}
+                            hint_text: 'Senha'
+                            size_hint_x: None
+                            password: True
+                            password_mask: "•"
+                            width: dp(300)
+
+                        MDIconButton:
+                            icon: "eye-off"
+                            ripple_scale: .5
+                            pos_hint: {"center_x": .85 ,"center_y": .5}
+                            #x: dp(300)- self.width + dp(8)
+                            on_release:
+                                self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                                texto_senha1.password = False if texto_senha1.password is True else True
+
+                    #MDLabel:
+                        #text: 'Não tem conta?'
+                        #pos_hint: {"center_y": .30}
+                        #x: dp(300)
+                    #MDTextButton:
+                        #text: 'Registre-se'
+                        #color: ku("#7EA3A2")
+                        #pos_hint: {"center_y": .30}
+                        #x: dp(420)
+
+                    MDFillRoundFlatButton:
+                        pos_hint: {"center_x": .5, "center_y": .74}
+                        md_bg_color: ku("#4A696E")
+                        font_size: dp(19)
+                        text: '   Login   '
+                        on_press:
+                            root.pegar_user(texto_email.text, texto_senha1.text, app)
+                           # root.inserir_data(texto_email.text, texto_senha1.text)
+
+
+            TabbedPanelItem:
+                text: 'Registrar'
+                color: ku("#7EA3A2")
+                background_color: 1,1,0,0
+
+                MDFloatLayout:
+
+                    MDTextFieldRound:
+                        id: texto_email2
+                        pos_hint: {"center_x": .5, "center_y": .96}
+                        hint_text: 'Email'
+                        icon_left: 'account'
+                        normal_color: ku("#4A696E")
+                        color_active: ku("#7EA3A2")
+                        size_hint_x: None
+                        width: dp(300)
+
+                    MDRelativeLayout:
+                        size_hint: None, None
+                        size: dp(300), texto_senha1.height
+                        pos_hint: {"center_x": .5, "center_y": .86}
+
+                        MDTextFieldRound:
+                            id: texto_senha2
+                            icon_left: 'lock'
+                            normal_color: ku("#4A696E")
+                            color_active: ku("#7EA3A2")
+                            #pos_hint: {"center_x": .5, "center_y": .86}
+                            hint_text: 'Senha'
+                            size_hint_x: None
+                            password: True
+                            password_mask: "•"
+                            width: dp(300)
+
+                        MDIconButton:
+                            icon: "eye-off"
+                            ripple_scale: .5
+                            pos_hint: {"center_x": .85 ,"center_y": .5}
+                            on_release:
+                                self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                                texto_senha2.password = False if texto_senha2.password is True else True
+
+                    MDRelativeLayout:
+                        size_hint: None, None
+                        size: dp(300), texto_senha1.height
+                        pos_hint: {"center_x": .5, "center_y": .76}
+
+                        MDTextFieldRound:
+                            id: texto_senha
+                            icon_left: 'lock'
+                            normal_color: ku("#4A696E")
+                            color_active: ku("#7EA3A2")
+                            #pos_hint: {"center_x": .5, "center_y": .76}
+                            hint_text: 'Confirmar senha'
+                            size_hint_x: None
+                            password: True
+                            password_mask: "•"
+                            width: dp(300)
+
+                        MDIconButton:
+                            icon: "eye-off"
+                            ripple_scale: .5
+                            pos_hint: {"center_x": .85 ,"center_y": .5}
+                            on_release:
+                                self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                                texto_senha.password = False if texto_senha.password is True else True
+
+                    MDFillRoundFlatButton:
+                        pos_hint: {"center_x": .5, "center_y": .64}
+                        md_bg_color: ku("#4A696E")
+                        font_size: sp(19)
+                        text: '   Registrar   '
+                        on_release:
+                            root.registrar(texto_email2.text, texto_senha.text, texto_senha2.text)
+
+
+

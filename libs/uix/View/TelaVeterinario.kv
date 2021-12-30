@@ -1,0 +1,82 @@
+#:import ku kivy.utils.get_color_from_hex
+
+<Tab@MDFloatLayout+MDTabsBase>
+
+<TelaVet>
+
+    MDFloatLayout:
+        id: float
+
+        MDBoxLayout:
+            orientation: "vertical"
+            MDToolbar:
+                id: toolbar
+                title: "Olá, nome do veterinário"
+                md_bg_color: ku("#4A696E")
+                right_action_items: [["magnify", lambda x: root.procurar(lista.children, pets.children) if len(lista.children) > 0 or len(pets.children) > 0 else False], ["exit-to-app", lambda x: app.logout()]]
+
+            MDTabs:
+                id: tab_now
+                on_tab_switch: root.get_nome_tab()
+                background_color: ku("7EA3A2")
+
+
+                Tab:
+
+                    icon: "calendar-month"
+                    title: "Agenda"
+                    ScrollView
+                        MDList:
+                            id: lista
+                            ThreeLineAvatarListItem:
+                                id: descricao
+                                text: "Cirurgia agendada: 25/11/2021"
+                                #on_touch_up: root.show_descricao(*args)
+                                secondary_text: "Paciente: Thor"
+                                tertiary_text: "Descrição: Paciente com aparelho respiratório compronetido"
+
+                            ThreeLineAvatarListItem:
+                                id: descricao
+                                text: "Vacina agendada: 29/11/2021"
+                                #on_release: root.show_descricao()
+                                secondary_text: "Paciente: Nina"
+                                tertiary_text: "Descrição: Vacina contra raiva"
+
+                            ThreeLineAvatarListItem:
+                                text: "Vacina agendada: 29/11/2021"
+                                #on_touch_up: root.show_descricao(*args)
+                                secondary_text: "Paciente: Nina"
+                                tertiary_text: "Descrição: Vacina contra raiva"
+
+                            ThreeLineAvatarListItem:
+                                id: descricao
+                                text: "Vacina agendada: 29/11/2021"
+                                #on_touch_up: root.show_descricao(*args)
+                                secondary_text: "Paciente: Nina"
+                                tertiary_text: "Descrição: Vacina contra raiva"
+
+                            ThreeLineAvatarListItem:
+                                id: descricao
+                                text: "Vacina agendada: 29/11/2021"
+                                #on_touch_up: root.show_descricao(*args)
+                                secondary_text: "Paciente: Nina"
+                                tertiary_text: "Descrição: Vacina contra raiva"
+
+                Tab:
+                    icon: "account-search-outline"
+                    title: "Pacientes"
+
+                    ScrollView:
+                        MDList:
+                            id: pets
+
+        MDTextFieldRound:
+            id: procurar
+            icon: "magnify"
+            hint_text:  "Procurar.."
+            normal_color: ku("7EA3A2")
+            color_active: ku("7EA3A2")
+            center: toolbar.center
+            size_hint_x: toolbar.size_hint_x/2
+            pos_hint: {"center_x": .5}
+            on_text: root.pesquisar(self.text, True, lista.children, pets.children)

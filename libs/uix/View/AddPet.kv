@@ -1,0 +1,189 @@
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+<CampoTexto>
+
+<Texto>
+
+<AddPet>
+    on_leave:
+        self.take_item(app, False)
+        Manager.current = "Tela1"
+
+    MDFloatLayout:
+
+        MDBoxLayout:
+
+            MDBoxLayout:
+                orientation: "vertical"
+
+                MDToolbar:
+                    title: "Adicione seu pet"
+                    md_bg_color: ku("#4A696E")
+
+                ScreenManager:
+                    id: Manager
+
+                    MDScreen:
+                        name: "Tela1"
+
+                        MDFloatLayout:
+
+                            Texto:
+                                halign: "center"
+                                text: "Espécie do seu pet:"
+                                pos_hint: {"y": .19}
+                                font_size: sp(19)
+
+                            CampoTexto:
+                                id: ct1
+                                size_hint_x: .8
+                                hint_text: "Espécie do pet"
+                                helper_text: "Exemplos: cachorro, gato, coelho"
+                                pos_hint: {"center_y": .5, "center_x": .5}
+                                helper_text_mode: "on_focus"
+
+                            MDFillRoundFlatButton:
+                                text: "     Próximo     "
+                                md_bg_color: ku("#4A696E")
+                                font_size: sp(19)
+                                pos_hint: {"center_x": .5, "y": .3}
+                                on_release:
+                                    Manager.current = "Tela2"
+
+                    MDScreen:
+                        name: "Tela2"
+
+                        MDFloatLayout:
+
+                            Texto:
+                                halign: "center"
+                                text: "E o nome é:"
+                                pos_hint: {"y": .19}
+                                font_size: sp(19)
+
+                            CampoTexto:
+                                id: ct2
+                                size_hint_x: .8
+                                hint_text: "Nome"
+                                helper_text: "Exemplos: Rodolfo, Tor, Hulk"
+                                pos_hint: {"center_y": .5, "center_x": .5}
+                                helper_text_mode: "on_focus"
+
+                            MDFillRoundFlatButton:
+                                text: "     Próximo     "
+                                md_bg_color: ku("#4A696E")
+                                font_size: sp(19)
+                                pos_hint: {"center_x": .5, "y": .3}
+                                on_release:
+                                    Manager.current = "Tela3"
+
+                            MDLabel:
+                                halign: "center"
+                                text: "Sexo:"
+                                pos_hint: {'center_x': .64, 'center_y': .42}
+
+                            MDDropDownItem:
+                                id: drop_item
+                                pos_hint: {'center_x': .75, 'center_y': .42}
+                                text: 'F'
+                                on_release: root.menu.open()
+
+                    MDScreen:
+                        name: "Tela3"
+
+                        MDFloatLayout:
+
+                            Texto:
+                                text: "Nascimento e o peso do seu pet:"
+                                pos_hint: {"y": .19, "x": .16}
+                                font_size: sp(19)
+
+                            CampoTexto:
+                                id: ct3
+                                size_hint_x: .3
+                                hint_text: "data de nascimento"
+                                helper_text: "Exemplo: 07/02/2002 ou 07022002"
+                                pos_hint: {"center_y": .5, "center_x": .275}
+                                helper_text_mode: "on_focus"
+
+                            CampoTexto:
+                                id: ct32
+                                size_hint_x: .3
+                                hint_text: "Peso em Kg"
+                                helper_text: "Exemplos: 2.5, 10, 21.7"
+                                pos_hint: {"center_y": .5, "center_x": .725}
+                                helper_text_mode: "on_focus"
+
+                            MDFillRoundFlatButton:
+                                text: "     Próximo     "
+                                md_bg_color: ku("#4A696E")
+                                font_size: sp(19)
+                                pos_hint: {"center_x": .5, "y": .3}
+                                on_release:
+                                    Manager.current = "Tela4"
+
+                    MDScreen:
+                        name: "Tela4"
+
+                        MDFloatLayout:
+
+                            Texto:
+                                halign: "center"
+                                text: "Raça do pet:"
+                                pos_hint: {"y": .19}
+                                font_size: sp(19)
+
+                            CampoTexto:
+                                id: ct4
+                                size_hint_x: .8
+                                hint_text: "Raça"
+                                helper_text: "Exemplos: Golden Retriver, Chitzu, Pug"
+                                pos_hint: {"center_y": .5, "center_x": .5}
+                                helper_text_mode: "on_focus"
+
+                            MDFillRoundFlatButton:
+                                text: "     Próximo     "
+                                md_bg_color: ku("#4A696E")
+                                font_size: sp(19)
+                                pos_hint: {"center_x": .5, "y": .3}
+                                on_release:
+                                    Manager.current = "Tela5"
+
+                    MDScreen:
+                        name: "Tela5"
+
+                        MDRelativeLayout:
+                            size_hint_y: .7
+                            pos_hint: {"top": 1}
+
+                            MDLabel:
+                                halign: "center"
+                                text: "Adicionar imagem:"
+                                pos_hint: {"top": 1.344}
+                                font_size: sp(19)
+
+                            Button:
+                                id: btimg
+                                background_normal:"Componentes/Icons/Buttonplus.png"
+                                background_down: "Componentes/Icons/Buttonplus.png"
+                                size_hint: .48, .5
+                                pos_hint: {"center_x": .5,"center_y": .5}
+                                on_press:
+                                    root.file_chooser()
+
+                            MDFillRoundFlatButton:
+                                text: "     Salvar     "
+                                md_bg_color: ku("#4A696E")
+                                font_size: sp(19)
+                                pos_hint: {"center_x": .5}
+                                on_release:
+                                    app.root.current = "TelaCliente"
+                                    app.root.transition = SlideTransition()
+                                    Manager.current = "Tela1"
+                                    root.take_item(app, True)
+
+        Image:
+            source: "Componentes/Imagens/Logo_sem_fundo.png"
+            size_hint: None, None
+            size: dp(128), dp(128)
+            pos_hint: {"top": .95, "right": .95}
